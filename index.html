@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Jenny Lyn M. Aguas — Portfolio</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #f5f5f0;
+      color: #1a1a18;
+      min-height: 100vh;
+      padding: 2rem 1rem;
+    }
+
+    .portfolio {
+      max-width: 720px;
+      margin: 0 auto;
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 2.5rem 2rem;
+      border: 0.5px solid #e0ddd5;
+    }
+
+    /* Hero */
+    .hero {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      padding-bottom: 2rem;
+      border-bottom: 0.5px solid #e0ddd5;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+
+    /* Avatar upload area */
+    .avatar-wrapper {
+      position: relative;
+      width: 80px;
+      height: 80px;
+      flex-shrink: 0;
+      cursor: pointer;
+    }
+    .avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: #C0DD97;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      font-weight: 500;
+      color: #27500A;
+      overflow: hidden;
+      transition: filter 0.2s;
+    }
+    .avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+      display: block;
+    }
+    .avatar-overlay {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      background: rgba(0, 0, 0, 0.38);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.2s;
+      gap: 4px;
+    }
+    .avatar-overlay svg {
+      width: 20px;
+      height: 20px;
+    }
+    .avatar-overlay span {
+      font-size: 10px;
+      color: #fff;
+      font-weight: 500;
+      letter-spacing: 0.03em;
+    }
+    .avatar-wrapper:hover .avatar-overlay { opacity: 1; }
+    .avatar-wrapper:hover .avatar { filter: brightness(0.75); }
+
+    #photo-input { display: none; }
+
+    .hero-text h1 {
+      font-size: 26px;
+      font-weight: 500;
+      color: #1a1a18;
+      line-height: 1.2;
+    }
+    .badge {
+      display: inline-block;
+      margin-top: 8px;
+      font-size: 12px;
+      padding: 3px 10px;
+      border-radius: 20px;
+      background: #EAF3DE;
+      color: #3B6D11;
+      font-weight: 500;
+    }
+    .tagline {
+      font-size: 14px;
+      color: #6b6b66;
+      margin-top: 8px;
+      font-style: italic;
+    }
+
+    .section-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #999993;
+      font-weight: 500;
+      margin-bottom: 0.75rem;
+    }
+
+    .about-card {
+      background: #f5f5f0;
+      border-radius: 12px;
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .about-card p {
+      font-size: 15px;
+      line-height: 1.8;
+      color: #1a1a18;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 2rem;
+    }
+    .contact-item {
+      background: #ffffff;
+      border: 0.5px solid #e0ddd5;
+      border-radius: 12px;
+      padding: 1rem 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .contact-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .contact-icon.email { background: #E6F1FB; }
+    .contact-icon.phone { background: #EAF3DE; }
+    .contact-icon svg { width: 16px; height: 16px; }
+    .contact-label { font-size: 11px; color: #999993; margin-bottom: 2px; }
+    .contact-value { font-size: 13px; color: #1a1a18; font-weight: 500; word-break: break-all; }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-bottom: 2rem;
+    }
+    .skill-pill {
+      background: #f5f5f0;
+      border: 0.5px solid #e0ddd5;
+      border-radius: 20px;
+      padding: 8px 14px;
+      text-align: center;
+      font-size: 13px;
+      color: #6b6b66;
+    }
+
+    .goal-card {
+      border-left: 3px solid #639922;
+      background: #f5f5f0;
+      border-radius: 0 12px 12px 0;
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .quote-mark {
+      font-size: 40px;
+      line-height: 0.5;
+      color: #97C459;
+      font-family: Georgia, serif;
+      display: block;
+      margin-bottom: 12px;
+    }
+    .goal-card p { font-size: 15px; line-height: 1.8; color: #1a1a18; }
+
+    .footer {
+      text-align: center;
+      font-size: 12px;
+      color: #999993;
+      padding-top: 1.5rem;
+      border-top: 0.5px solid #e0ddd5;
+    }
+
+    @media (max-width: 480px) {
+      .contact-grid { grid-template-columns: 1fr; }
+      .skills-grid { grid-template-columns: 1fr 1fr; }
+      .hero { flex-direction: column; align-items: flex-start; }
+      .portfolio { padding: 1.5rem 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="portfolio">
+
+  <div class="hero">
+
+    <div class="avatar-wrapper" onclick="document.getElementById('photo-input').click()" title="Click to upload photo">
+      <div class="avatar" id="avatar-display">
+        <span id="avatar-initials">JA</span>
+        <img id="avatar-img" src="" alt="Profile photo" style="display:none;" />
+      </div>
+      <div class="avatar-overlay">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+          <circle cx="12" cy="13" r="4"/>
+        </svg>
+        <span>Upload</span>
+      </div>
+    </div>
+    <input type="file" id="photo-input" accept="image/*" onchange="handlePhoto(event)" />
+
+    <div class="hero-text">
+      <h1>Jenny Lyn M. Aguas</h1>
+      <span class="badge">BSIT — Bachelor of Science in Information Technology</span>
+      <p class="tagline">Dreamer, student, and mother</p>
+    </div>
+  </div>
+
+  <p class="section-label">About</p>
+  <div class="about-card">
+    <p>I am a student taking up BSIT not because I already know computers — but precisely because I want to learn. Starting from the very beginning takes courage, and I am here, ready to grow. I am also a mother, which means I bring patience, determination, and heart to everything I do.</p>
+  </div>
+
+  <p class="section-label">Contact</p>
+  <div class="contact-grid">
+    <div class="contact-item">
+      <div class="contact-icon email">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#185FA5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="4" width="20" height="16" rx="2"/>
+          <polyline points="2,4 12,13 22,4"/>
+        </svg>
+      </div>
+      <div>
+        <div class="contact-label">Email</div>
+        <div class="contact-value">aguasjhen925@gmail.com</div>
+      </div>
+    </div>
+    <div class="contact-item">
+      <div class="contact-icon phone">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#3B6D11" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/>
+        </svg>
+      </div>
+      <div>
+        <div class="contact-label">Phone</div>
+        <div class="contact-value">0921 797 8071</div>
+      </div>
+    </div>
+  </div>
+
+  <p class="section-label">Areas of study</p>
+  <div class="skills-grid">
+    <div class="skill-pill">Computer basics</div>
+    <div class="skill-pill">IT fundamentals</div>
+    <div class="skill-pill">Programming</div>
+    <div class="skill-pill">Networking</div>
+  </div>
+
+  <p class="section-label">Personal mission</p>
+  <div class="goal-card">
+    <span class="quote-mark">"</span>
+    <p>I am taking this course to prove to myself — and to my child — that it is never too late to learn something new. Every skill I gain in technology is a step toward a better future for my family.</p>
+  </div>
+
+  <div class="footer">Jenny Lyn M. Aguas &nbsp;·&nbsp; BSIT Student &nbsp;·&nbsp; Philippines</div>
+
+</div>
+
+<script>
+  function handlePhoto(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      const img = document.getElementById('avatar-img');
+      const initials = document.getElementById('avatar-initials');
+      img.src = e.target.result;
+      img.style.display = 'block';
+      initials.style.display = 'none';
+    };
+    reader.readAsDataURL(file);
+  }
+</script>
+
+</body>
+</html>
